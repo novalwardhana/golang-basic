@@ -6,47 +6,96 @@ import (
 	"sync"
 )
 
-func doPrint(wg *sync.WaitGroup, data string) {
+func doPrint(str string, wg *sync.WaitGroup) {
 	defer wg.Done()
-	fmt.Println(data)
+	fmt.Println(str)
+}
+
+type iteration struct {
+	sync.Mutex
+	val int
+}
+
+func (i *iteration) addValue() {
+	i.Lock()
+	i.val++
+	i.Unlock()
+}
+
+func add(itr *iteration, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for i := 0; i < 1000; i++ {
+		itr.addValue()
+	}
 }
 
 func main() {
+	fmt.Println("Part 59 Sync Wait Group")
+
 	runtime.GOMAXPROCS(2)
 
-	fmt.Println("Part 59 Sync Wait Group")
 	var wg sync.WaitGroup
 	for i := 0; i < 5; i++ {
-		var data = fmt.Sprintf("Data ke-%d", i)
 		wg.Add(1)
-		go doPrint(&wg, data)
+		str := fmt.Sprintf("Iterasi ke: %d", i)
+		go doPrint(str, &wg)
 	}
 	wg.Wait()
 
+	fmt.Println("-----")
+
 	var wg2 sync.WaitGroup
 	for i := 0; i < 5; i++ {
-		var data = fmt.Sprintf("Iterasi ke-%d", i)
 		wg2.Add(1)
-		go doPrint(&wg2, data)
+		str := fmt.Sprintf("Iterasi ke: %d", i)
+		go func() {
+			defer wg2.Done()
+			fmt.Println(str)
+		}()
 	}
 	wg2.Wait()
 
+	fmt.Println("-----")
+
 	var wg3 sync.WaitGroup
-	for i := 0; i < 3; i++ {
-		var data = fmt.Sprintf("Send data-%d", i)
+	var itr3 iteration
+	for i := 0; i < 1000; i++ {
 		wg3.Add(1)
-		go doPrint(&wg3, data)
+		go func() {
+			defer wg3.Done()
+			for i := 0; i < 1000; i++ {
+				itr3.addValue()
+			}
+		}()
 	}
 	wg3.Wait()
+	fmt.Printf("Iteration 3: %d\n", itr3.val)
+
+	fmt.Println("-----")
 
 	var wg4 sync.WaitGroup
-	for i := 0; i < 5; i++ {
-		var data = fmt.Sprintf("Insert data-%d", i)
+	var itr4 iteration
+	for i := 0; i < 300; i++ {
 		wg4.Add(1)
 		go func() {
-			defer wg4.Done()
-			fmt.Println(data)
+			for i := 0; i < 300; i++ {
+				itr4.Lock()
+				itr4.val++
+				itr4.Unlock()
+			}
+			wg4.Done()
 		}()
 	}
 	wg4.Wait()
+	fmt.Printf("Iteration 4: %d\n", itr4.val)
+
+	fmt.Println("-----")
+	var wg5 sync.WaitGroup
+	var itr5 iteration
+	for i := 0; i < 1000; i++ {
+		wg5.Add(1)
+		go add(&itr5, &wg5)
+	}
+	wg5.Wait()
+	fmt.Printf("Iteration 5: %d\n", itr5.val)
 }
