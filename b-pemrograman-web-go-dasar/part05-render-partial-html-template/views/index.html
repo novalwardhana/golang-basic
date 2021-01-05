@@ -1,0 +1,13 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html>
+<head>
+    {{template "_header"}}
+</head>
+<body>
+    {{template "_message"}}
+    <p>Page: {{.category}}</p>
+    <p>Name: {{.name}}</p>
+</body>
+</html>
+{{end}}
