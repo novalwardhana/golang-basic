@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>{{.Name}}</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                {{ $gender := .Gender }}
+                <td>{{$gender}}</td>
+            </tr>
+            <tr>
+                <td>Hobbies</td>
+                <td>
+                    {{range $index, $elem := .Hobbies}}
+                        {{$elem}}, 
+                    {{end}}
+                </td>
+            </tr>
+            <tr>
+                <td>Affliation</td>
+                <td>{{.Info.Affliation}}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                {{$address := .Info.Address}}
+                <td>{{$address}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold;">Nike: Risk Everything!</td>
+            </tr>
+        </table>
+        {{$isTrue := true}}
+        {{if $isTrue}}
+            <p>True 1</p>
+        {{else}}
+            <p>Other 1</p>
+        {{end}}
+
+    </body>
+</html>

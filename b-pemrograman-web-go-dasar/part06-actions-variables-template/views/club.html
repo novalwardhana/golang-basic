@@ -1,0 +1,60 @@
+{{define "club"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Club</title>
+</head>
+<body>
+    <table style="width: 500px">
+        <tr>
+            <td>Name</td>
+            <td>{{.Name}}</td>
+        </tr>
+        <tr>
+            <td>Competition</td>
+            {{range $index, $data := .Competitions}}
+                <td>{{ $data }},</td>
+            {{end}}
+        </tr>
+        <tr>
+            <td>Stadium</td>
+            {{$stadium := .Stadium}}
+            <td>{{$stadium}}</td>
+        </tr>
+        <tr>
+            <td>Origin</td>
+            {{$origin := .Origin}}
+            <td>{{$origin}}</td>
+        </tr>
+        <tr>
+            <td>Sponsors</td>
+            {{$sponsors := .Sponsors}}
+            {{range $index, $data := $sponsors}}
+                <td>{{$data}},</td>
+            {{end}}
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>{{.Info.Address}}</td>
+        </tr>
+        <tr>
+            <td>Affiliation</td>
+            {{$affiliation := .Info.Affliation}}
+            <td>{{$affiliation}}</td>
+        </tr>
+        <tr>
+            <td>Data Json</td>
+            {{$dataJson := .DataJSON}}
+            <td>{{$dataJson}}</td>
+        </tr>
+        <tr>
+            {{if .Status}}
+                <td colspan="2" style="font-weight: bold;">This is football club</td>
+            {{else}}
+                <td colspan="2" style="font-weight: bold;">This is not football club</td>
+            {{end}}
+        </tr>
+    </table>
+</body>
+</html>
+{{end}}
