@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>DC Superhero</title>
+</head>
+<body>
+    Haloo
+    <br>
+    {{html "<p>Test HTML</p>"}}
+    <br><br>
+
+    {{if eq .Name "DC Universe"}}
+        This is DC Universe
+    {{else if eq .Name "Marvel"}}
+        This is Marvel
+    {{else}}
+        This is X-Men
+    {{end}}
+
+    <table>
+        <tr>
+            <td>Name</td>
+            {{$name := .Name}}
+            <td>{{$name}}</td>
+        </tr>
+        <tr>
+            <td>Alias</td>
+            {{$alias := .Alias}}
+            <td>{{$alias}}</td>
+        </tr>
+        <tr>
+            <td>Member</td>
+            {{$member := .Member}}
+            {{range $index, $data := .Member}}
+                <td style="text-align: left;">{{$data}},</td>
+            {{end}}
+        </tr>
+    </table>
+
+    <br>
+    <p>
+        {{println "DC universe"}} <br>
+        {{print .Alias}}<br>
+        {{printf "The name is: %s" .Name}}
+    </p>
+
+    <p>
+        DC Universe have {{len .Member}} Member, they are: <br>
+        - {{index .Member 0}} <br>
+        - {{index .Member 1}} <br>
+        - {{index .Member 2}} <br>
+        - {{index .Member 3}} <br>
+        - {{index .Member 4}} <br>
+        - {{index .Member 5}} <br>
+    </p>
+
+    <p>
+        {{$cond1 := true}}
+        {{$cond2 := false}}
+        {{if or $cond1 $cond2}}
+            This is DC Universe Page
+        {{else if eq $cond1 $cond2}}
+            This is Marvel Universe
+        {{end}}
+    </p>
+</body>
+</html>

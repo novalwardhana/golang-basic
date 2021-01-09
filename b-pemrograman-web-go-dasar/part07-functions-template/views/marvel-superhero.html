@@ -1,0 +1,90 @@
+{{define "marvel-superhero"}}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .table-border {
+        border: 1px solid #333;
+        padding: 2px 10px;
+    }
+</style>
+</head>
+<body>
+    {{html "<h1>Haloo</h1>"}} <br>
+    {{$template := "marvel-superhero"}}
+    {{if eq $template "marvel-superhero"}}
+        Marvel Superhero Page
+    {{end}}
+
+    <br><br>
+    <table class="table-border">
+        <tr>
+            <td class="table-border">Name</td>
+            {{$name := .Name}}
+            <td class="table-border">{{$name}}</td>
+        </tr>
+        <tr>
+            <td class="table-border">Alias</td>
+            {{$alias := .Alias}}
+            <td class="table-border">{{$alias}}</td>
+        </tr>
+        <tr>
+            <td class="table-border">Lead</td>
+            {{$lead := .Lead}}
+            <td class="table-border">{{$lead}}</td>
+        </tr>
+        <tr>
+            <td class="table-border">Member</td>
+            {{$member := .Member}}
+            {{range $index, $data := $member}}
+                <td class="table-border">{{$data}},</td>
+            {{end}}
+        </tr>
+    </table>
+
+    <p>
+        {{print "Haloo"}} <br>
+        {{printf "This is %s page" .Name}} <br>
+        {{println .Alias}}
+    </p>
+
+    <p>
+        {{print .Name}} {{print "Have"}} {{len .Member}} {{print "members"}} {{print "they are: "}}<br>
+        {{print "- "}} {{index .Member 0}} <br>
+        {{print "- "}} {{index .Member 1}} <br>
+        {{print "- "}} {{index .Member 2}} <br>
+        {{print "- "}} {{index .Member 3}} <br>
+        {{print "- "}} {{index .Member 4}} <br>
+        {{print "- "}} {{index .Member 5}} <br>
+        {{print "- "}} {{index .Member 6}}
+    </p>
+
+    <p>
+        {{$cond1 := true}}
+        {{$cond2 := false}}
+        {{if or $cond1 $cond2 }}
+            {{printf "This is %s" .Name}}<br>
+        {{end}}
+
+        {{$isDC := false}}
+        {{$isMarvel := false}}
+        {{if eq .Name "DC Universe"}}
+            {{$isDC = true}}
+            {{$isMarvel = false}}
+        {{else if eq .Name "Marvel Universe"}}
+            {{$isDC = false}}
+            {{$isMarvel = true}}
+        {{else}}
+            {{$isDC = false}}
+            {{$isMarvel = false}}
+        {{end}}
+
+        {{printf "Is DC: %v" $isDC}} <br>
+        {{printf "Is Marvel: %v" $isMarvel}} <br>
+        {{if or $isDC $isMarvel}}
+            {{print "This is DC or Marvel Universe"}}
+        {{end}}
+    </p>
+</body>
+</html>
+{{end}}
