@@ -1,0 +1,48 @@
+<html>
+<head>
+<style>
+    .table-td-head {text-align: left;border: 1px solid #333; width: 100px; background: #f2f2f2}
+    .table-td-body {text-align: right; border: 1px solid #333; width: 100px;}
+    .left {text-align: left;}
+</style>
+</head>
+<body>
+    {{title .RequestType}} <br>
+    <table>
+        <tr>
+            <td class="table-td-head" colspan="2">Input Data</td>
+        </tr>
+        <tr>
+            <td class="table-td-body left">Length</td>
+            {{$Length := .RequestData.Length}}
+            <td class="table-td-body">{{$Length}}</td>
+        </tr>
+        <tr>
+            <td class="table-td-body left">Width</td>
+            {{$Width := .RequestData.Width}}
+            <td class="table-td-body">{{$Width}}</td>
+        </tr>
+        <tr>
+            <td class="table-td-body left">Height</td>
+            {{$Height := .RequestData.Height}}
+            <td class="table-td-body">{{$Height}}</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table>
+        <tr>
+            <td class="table-td-head" colspan="2">Result Data</td>
+        </tr>
+        <tr>
+            <td class="table-td-body left">Surface Area</td>
+            <td class="table-td-body">{{surfaceArea $Length $Width $Height}}</td>
+        </tr>
+        <tr>
+            <td class="table-td-body left">Volume</td>
+            <td class="table-td-body">{{volume $Length $Width $Height}}</td>
+        </tr>
+    </table>
+</body>
+</html>

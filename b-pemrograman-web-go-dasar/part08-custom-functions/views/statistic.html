@@ -1,0 +1,54 @@
+<html>
+<head>
+<style>
+    .td-head {
+        background: #f2f2f2; border: 1px solid #333;width: 50px;
+    }
+    .td-body{
+        text-align: right; border: 1px solid #333;width: 50px;
+    }
+    .left {
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+    {{addHTML "Statistic"}}<br>
+    {{$RequestType := .RequestType}}
+    {{$RequestData := .RequestData}}
+
+    <table>
+        <tr>
+            <td class="td-head">
+                {{print "Input Data: "}}
+            </td>
+        </tr>
+        {{range $index, $data := $RequestData}}
+        <tr>
+            <td class="td-body">{{print $data}}</td>
+        </tr>
+        {{end}}
+    </table>
+
+    <br>
+    <table>
+        <tr>
+            <td class="td-head" colspan="2">
+                {{print "Result Data"}}
+            </td>
+        </tr>
+        <tr>
+            <td class="td-body left">Mean</td>
+            <td class="td-body">{{mean $RequestData}}</td>
+        </tr>
+        <tr>
+            <td class="td-body left">Min</td>
+            <td class="td-body">{{min 9 5 6 7 3 10 7 8 6 8}}</td>
+        </tr>
+        <tr>
+            <td class="td-body left">Max</td>
+            <td class="td-body">{{max $RequestData}}</td>
+        </tr>
+    </table>
+</body>
+</html>
