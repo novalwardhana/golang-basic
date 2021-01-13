@@ -1,0 +1,31 @@
+{{define "manchester-united-page"}}
+<html>
+<head>
+
+</head>
+<body>
+{{greeting}} to Manchester United Page
+</body>
+</html>
+{{end}}
+
+{{define "real-madrid-page"}}
+<html>
+<head>
+
+</head>
+<body>
+{{greeting}} to Real Madrid Page
+</body>
+</html>
+{{end}}
+
+{{define "arsenal-page"}}
+<html>
+<head></head>
+<body>
+{{$clubName := .RequestData.Name}}
+{{greeting}} {{clubName $clubName}}
+</body>
+</html>
+{{end}}
