@@ -1,0 +1,32 @@
+{{define "new-merchant"}}
+<html>
+<head>
+    <title>
+        {{.RequestData.Title}}
+    </title>
+</head>
+<body>
+    <h3>New Merchant</h3>
+    <form method="post" action="/show-merchant">
+        <table>
+            <tr>
+                <td><b>Name</b></td>
+                <td><input type="text" name="name" required/></td>
+            </tr>
+            <tr>
+                <td><b>Email</b></td>
+                <td><input type="text" name="email" required/></td>
+            </tr>
+            <tr>
+                <td><b>Phone Number</b></td>
+                <td><input type="text" name="phone_number" required/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Send</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{{end}}

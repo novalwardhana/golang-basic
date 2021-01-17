@@ -1,0 +1,20 @@
+{{define "new-message"}}
+<html>
+<head>
+    <title>
+        {{.RequestData.Title}}
+    </title>
+</head>
+<body>
+    <form method="post" action="/show-message">
+        <b>Name</b><br>
+        <input type="text" name="name" required/><br><br>
+
+        <b>Message</b><br>
+        <input type="textarea" name="message" required><br><br>
+
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
+{{end}}
