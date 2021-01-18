@@ -1,0 +1,27 @@
+{{define "upload"}}
+<html>
+<head>
+<title>
+    Upload File
+</title>
+</head>
+<body>
+    <form action="/upload-process" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td><b>File</b></td>
+                <td><input type="file" name="file" required/></td>
+            </tr>
+            <tr>
+                <td><b>New Name</b></td>
+                <td><input type="text" name="alias" required/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Submit</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{{end}}

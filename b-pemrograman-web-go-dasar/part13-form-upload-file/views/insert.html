@@ -1,0 +1,25 @@
+{{define "insert"}}
+<html>
+<head>
+
+</head>
+<body>
+    <form action="/insert-process" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td><b>File</b></td>
+                <td><input type="file" name="upload_file" required/></td>
+            </tr>
+            <tr>
+                <td><b>New Name</b></td>
+                <td><input type="text" name="name" placeholder="Filename" required/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Submit</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{{end}}
