@@ -1,0 +1,49 @@
+{{define "upload-file"}}
+<html>
+<head>
+    <title>Upload File</title>
+    <script src="static/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#form-upload-file").on("submit", function(e){
+                e.preventDefault();
+
+                let $self = $(this);
+                var formData = new FormData();
+                let files = $("#upload-file")[0].files;
+
+                for (let i = 0; i < files.length; i++) {
+                    formData.append("files", files[i]);
+                }
+                
+                $.ajax({
+                    url: $self.attr("action"),
+                    type: $self.attr("method"),
+                    data: formData,
+                    processData: false,
+                    contentType: false
+                }).then(function(resp){
+                    console.log("Iki resp", resp);
+                }).catch(function(e){
+                    alert(e);
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+    <form id="form-upload-file" action="/upload-file-process" method="post">
+        <table>
+            <tr>
+                <td><b>File</b></td>
+                <td><input multiple id="upload-file" type="file" required/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Submit</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{{end}}
