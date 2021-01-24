@@ -1,0 +1,52 @@
+{{define "list"}}
+<html>
+<head>
+    <title>
+        List Data
+    </title>
+    <script type="text/javascript">
+        function Yo() {
+            let self = this;
+            let $ul = document.getElementById("list-files");
+
+            let renderData = function(res) {
+                res.forEach(function(each){
+                    let $li = document.createElement("li");
+                    let $a = document.createElement("a");
+
+                    $li.innerText = "Download";
+                    $li.appendChild($a);
+                    $ul.appendChild($li);
+
+                    $a.href = "/list-download?path=" + each.path;
+                    $a.innerText = each.filename;
+                    $a.target = "_blank";
+                });
+            };
+
+            let getAllListFiles = function() {
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", "/list-get-data")
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        let json = JSON.parse(xhr.responseText);
+                        renderData(json);
+                    };
+                };
+                xhr.send();
+            };
+
+            self.init = function() {
+                getAllListFiles();
+            };
+        };
+        window.onload = function() {
+            new Yo().init();
+        };
+    </script>
+</head>
+<body>
+    <ul id="list-files"></ul>
+</body>
+</html>
+{{end}}
