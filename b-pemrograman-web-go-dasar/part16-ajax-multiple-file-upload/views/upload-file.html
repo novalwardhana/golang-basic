@@ -23,7 +23,8 @@
                     processData: false,
                     contentType: false
                 }).then(function(resp){
-                    console.log("Iki resp", resp);
+                    alert(resp);
+                    $("#form-upload-file").trigger("reset");
                 }).catch(function(e){
                     alert(e);
                 })

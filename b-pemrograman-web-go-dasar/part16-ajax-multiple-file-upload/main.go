@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"io"
 	"log"
@@ -24,6 +23,8 @@ func main() {
 
 	http.HandleFunc("/upload-file", routeUploadFile)
 	http.HandleFunc("/upload-file-process", routeUploadFileProcess)
+	http.HandleFunc("/insert-file", routeInsertFile)
+	http.HandleFunc("/insert-file-process", routeInsertFileProcess)
 
 	server := new(http.Server)
 	address := "localhost:9000"
@@ -66,12 +67,78 @@ func routeUploadFileProcess(w http.ResponseWriter, r *http.Request) {
 
 	for {
 		part, err := reader.NextPart()
-		fmt.Println("iki part", part)
-		if err != io.EOF {
+		if err == io.EOF {
 			break
 		}
 
 		fileLocation := filepath.Join(dir, "files", part.FileName())
-		fmt.Println(fileLocation)
+		createFiles, err := os.Create(fileLocation)
+		if createFiles != nil {
+			defer createFiles.Close()
+		}
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		if _, err := io.Copy(createFiles, part); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
+
+	w.Write([]byte("Success upload all files"))
+}
+
+func routeInsertFile(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	tmpl := template.Must(template.New("insert-file").ParseFiles("views/insert-file.html"))
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func routeInsertFileProcess(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	files, err := r.MultipartReader()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	dir, err := os.Getwd()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	for {
+		file, err := files.NextPart()
+		if err == io.EOF {
+			break
+		}
+
+		filedir := filepath.Join(dir, "files", file.FileName())
+		createFile, err := os.Create(filedir)
+		if createFile != nil {
+			defer createFile.Close()
+		}
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		if _, err := io.Copy(createFile, file); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+
+	w.Write([]byte("File success fully uploaded"))
 }

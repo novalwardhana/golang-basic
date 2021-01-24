@@ -1,0 +1,51 @@
+{{define "insert-file"}}
+<html>
+<head>
+    <title>
+        Insert File
+    </title>
+    <script src="static/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#form-insert-file").on("submit", function(e){
+                e.preventDefault()
+
+                let $self = $(this);
+                let formData = new FormData()
+                let files = $("#insert-file")[0].files;
+                for (let i=0; i< files.length; i++) {
+                    formData.append("files", files[i])
+                }
+
+                $.ajax({
+                    url: $self.attr("action"),
+                    type: $self.attr("method"),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                }).then(function(resp){
+                    alert(resp);
+                    $("#form-insert-file").trigger("reset");
+                }).catch(function(err){
+                    alert(err);
+                })
+            }); 
+        });
+    </script>
+</head>
+<body>
+    <form id="form-insert-file" action="/insert-file-process" method="post">
+        <table>
+            <tr>
+                <td><b>Insert Files</b></td>
+                <td><input multiple id="insert-file" type="file" requierd/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Submit</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{{end}}
