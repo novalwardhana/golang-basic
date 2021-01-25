@@ -1,0 +1,52 @@
+{{define "catalog"}}
+<html>
+<head>
+    <title>
+        Catalog
+    </title>
+    <script type="text/javascript">
+        function catalog() {
+            let self = this;
+            let $ul = document.getElementById("list-files");
+
+            let renderFiles = function(files) {
+                files.forEach(function(file){
+                    let $li = document.createElement("li");
+                    let $a = document.createElement("a");
+
+                    $li.innerText = "Download: "
+                    $li.appendChild($a);
+                    $ul.appendChild($li);
+
+                    $a.innerText = file.name;
+                    $a.href = "/catalog-download?path=" + file.path;
+                    $a.target = "_blank";
+                });
+            };
+
+            let getFiles = function() {
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", "/catalog-get-data")
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        let response = xhr.responseText;
+                        renderFiles(JSON.parse(response));
+                    }
+                };
+                xhr.send();
+            };
+
+            self.init = function() {
+                getFiles();
+            };
+        };
+        window.onload = function() {
+            new catalog().init();
+        };
+    </script>
+</head>
+<body>
+    <ul id="list-files"></ul>
+</body>
+</html>
+{{end}}

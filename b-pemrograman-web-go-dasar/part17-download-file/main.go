@@ -16,9 +16,17 @@ type m map[string]interface{}
 
 func main() {
 	http.HandleFunc("/", routeIndex)
+	http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("assets"))))
+
 	http.HandleFunc("/list", routeList)
 	http.HandleFunc("/list-get-data", routeListGetData)
 	http.HandleFunc("/list-download", routeListDownload)
+
+	http.HandleFunc("/catalog", routeCatalog)
+	http.HandleFunc("/catalog-get-data", routeCatalogGetData)
+	http.HandleFunc("/catalog-download", routeCatalogDownload)
+	http.HandleFunc("/catalog-upload", routeCatalogUpload)
+	http.HandleFunc("/catalog-upload-process", routeCatalogUploadProcess)
 
 	server := new(http.Server)
 	address := "localhost:9000"
