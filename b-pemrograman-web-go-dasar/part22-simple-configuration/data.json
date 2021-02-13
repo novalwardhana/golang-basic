@@ -1,0 +1,5 @@
+[
+    {"id": 1, "code": "food0001", "name": "Sate Ayam", "price": 12500},
+    {"id": 2, "code": "food0002", "name": "Sate Kambing", "price": 20000},
+    {"id": 3, "code": "food0003", "name": "Soto", "price": 10000}
+]
