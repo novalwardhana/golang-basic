@@ -2,3 +2,4 @@ a-dasar/part61-go-vendoring/vendor
 c-pemrograman-go-lanjut/part01-echo-framework-routing/vendor
 c-pemrograman-go-lanjut/part02-parsing-http-request-payload/vendor
 c-pemrograman-go-lanjut/part03-http-request-payload-validation/vendor
+c-pemrograman-go-lanjut/part04-http-error-handling/vendor
