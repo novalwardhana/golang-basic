@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>{{.Title}}</title>
+    <style>
+        .table-head tr, .table-head th {
+            background: #f2f2f2;
+            text-align: left;
+            padding: 5px 10px;
+        }
+        .table-body tr, .table-body td {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <b>Status: {{.Code}}</b>
+    <br>
+    <b>Message: {{.Message}}</b>
+    <br><br>
+
+    <b>User Lists</b>
+    <table>
+        <thead class="table-head">
+            <tr>
+                <th><b>Email</b></th>
+                <th><b>Name</b></th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            {{range $index, $data := .Data}}
+            <tr>
+                <td>{{$data.Email}}</td>
+                <td>{{$data.Name}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</body>
+</html>

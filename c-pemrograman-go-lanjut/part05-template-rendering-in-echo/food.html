@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>{{.Title}}</title>
+    <style type="text/css">
+        .table-head tr, .table-head th {
+            background: #f2f2f2;
+            padding: 5px 10px;
+            text-align: left;
+        }
+        .table-body tr, .table-body td {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <b>Status: {{.Code}}</b>
+    <br>
+    <b>Message: {{.Message}}</b>
+    <br><br>
+    <b>Food Lists</b>
+    <table>
+        <thead class="table-head">
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            {{range $index, $data := .Data}}
+            <tr>
+                <td>{{$data.Code}}</td>
+                <td>{{$data.Name}}</td>
+                <td>{{$data.Price}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</body>
+</html>
