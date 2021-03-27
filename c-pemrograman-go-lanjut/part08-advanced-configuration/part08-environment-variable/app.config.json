@@ -1,0 +1,34 @@
+{
+    "foods": {
+        "type": "food",
+        "data": [
+            {
+                "code": "F0001",
+                "name": "Mie Ayam",
+                "price": 12000
+            },
+            {
+                "code": "F0002",
+                "name": "Bakso",
+                "price": 15000
+            }
+        ]
+    },
+    "clubs": [
+        {
+            "code": "MC",
+            "name": "Manchester City",
+            "position": 1
+        },
+        {
+            "code": "MU",
+            "name": "Manchester United",
+            "position": 2
+        },
+        {
+            "code": "LC",
+            "name": "Leichester City",
+            "position": 3
+        }
+    ]
+}
