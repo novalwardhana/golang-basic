@@ -1,0 +1,21 @@
+{
+    "appName": "NovalAPP",
+    "server": {
+        "port": 9000
+    },
+    "data": {
+        "type": "Food lists",
+        "detail": [
+            {
+                "code": "F001",
+                "name": "Sate Ayam",
+                "price": 18000
+            },
+            {
+                "code": "F002",
+                "name": "Sate Kambing",
+                "price": 25000
+            }
+        ]
+    }
+}
