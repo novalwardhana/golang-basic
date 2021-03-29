@@ -1,0 +1,8 @@
+{
+    "app_name": "Noval API Service",
+    "server" : {
+        "port": 9000,
+        "read_timeout": 10,
+        "write_timeout": 12
+    }
+}
